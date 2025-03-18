@@ -1,0 +1,183 @@
+
+  <!-- custom aleart message -->
+<div *ngIf="alertVisible" class="alert-box" style="justify-content: space-between; " [ngClass]="alertType">
+  <div style='display: flex; align-items: center; text-align: center;' >
+    <i *ngIf="successVisible" style='font-size:16px ; margin-right: 60px;' class="material-icons">&#xe001;</i> 
+    <i *ngIf="errorVisible" style='font-size:16px ; margin-right: 60px;' class="material-icons">&#xe86c;</i>
+    <p>{{ alertMessage }}</p>
+  </div>
+  <button (click)="closeAlert()">x</button>
+</div>
+
+<div class="managment-body" >
+  
+  <h1 style="text-align: center; color: #0056b3;">Item Management</h1>
+  <!-- Form to Add New Item -->
+  <form >
+    <h2 style="color: #0056b3;"> Add New Item with number : {{ lastId }}</h2>
+    <input type="number" placeholder="User Number" (input)="getItems()" [(ngModel)]="search_id" [(ngModel)]="newItem.id" name="id" required />
+    <input type="text" placeholder="Name" [(ngModel)]="newItem.name" name="name" required />
+    <input type="text" placeholder="Street Address" [(ngModel)]="newItem.street_address" name="street_address" />
+    <input type="text" placeholder="City" [(ngModel)]="newItem.city" name="city" />
+    <input type="text" placeholder="State" [(ngModel)]="newItem.state" name="state" />
+    <input type="text" placeholder="Postal Code" [(ngModel)]="newItem.postal_code" name="postal_code" />
+    <input type="text" placeholder="Telephone" [(ngModel)]="newItem.telefone" name="telefone" />
+    <div class="user-actions" style="justify-content: space-between;">
+      <button type="submit" (click)="addItem()" class="user-edit-button">Add Item</button>
+      <button (click)="toggleDivUser()" class="user-delete-button"  >Edit Users</button>
+    </div>
+  </form>
+
+  <div *ngIf="isUsersVisible" class="edit-products">
+    <div class="user-actions" style="display:flex; justify-content:  space-between; margin-bottom: 20px;">
+        <div class="search-div">
+          <input type="search" placeholder="Search for users ...." [(ngModel)]="searchQuery" class="search-users">
+        </div>
+        <button (click)="toggleDivUser()" class="user-delete-button" style="height: 25px;">close</button>
+    </div>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>NUMMER</th>
+          <th>Name</th>
+          <th>Update</th> <!-- For the edit and delete buttons -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let value of filteredUsers">
+          <div *ngIf="showEditUserDisplay[value.id]" class="edit-products">
+            <form>
+              <h2 style="color: #0056b3;">edit item with Artikel Nummer  : {{ value.id }} </h2>
+              <input type="text" placeholder='{{ value.name }}' [(ngModel)]="editItem.name" name="name" required />
+              <input type="text" placeholder='{{ value.street_address }}' [(ngModel)]="editItem.street_address" name="street_address" />
+              <input type="text" placeholder='{{ value.city }}' [(ngModel)]="editItem.city" name="city" />
+              <input type="text" placeholder='{{ value.state }}' [(ngModel)]="editItem.state" name="state" />
+              <input type="text" placeholder='{{ value.postal_code }}' [(ngModel)]="editItem.postal_code" name="postal_code" />
+              <input type="text" placeholder='{{ value.telefone }}' [(ngModel)]="editItem.telefone" name="telefone" />
+              <div class="user-actions" style="justify-content: space-between;">
+                <button type="submit" (click)="update(value.id,editItem)" class="user-edit-button">update</button>
+                <button (click)="closeEditUserDisplay(value.id)" class="user-delete-button">Close</button> 
+            </div>
+            </form>
+          </div>
+          <td>{{ value.id }}</td>
+          <td>{{ value.name }}</td>
+          <td>
+            <div class="user-actions">
+              <button class="user-edit-button" (click)="openEditUserDisplay(value.id)">Edit</button>
+              <button class="user-delete-button" (click)="delete(value.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Form to Add New Product -->
+  <form >
+    <h2 style="color: #0056b3;">Add New Product</h2>
+    <input type="text" placeholder="Artikelnummer" [(ngModel)]="newProduct.artikelnummer" name="artikelnummer" required />
+    <input type="text" placeholder="Name" [(ngModel)]="newProduct.name" name="name" />
+    <input type="number" placeholder="Preis" [(ngModel)]="newProduct.preis" name="preis" />
+    <div class="user-actions" style="justify-content: space-between;">
+      <button type="submit"  (click)="addProduct()" class="user-edit-button" >Add Product</button>
+      <button (click)="toggleDiv()" class="user-delete-button"  >Edit products</button>
+    </div>
+  </form>
+
+  <div *ngIf="isVisible"  class="edit-products">
+      <div class="user-actions" style="display:flex; justify-content:  space-between; margin-bottom: 20px;">
+        <div class="search-div">
+          <input type="search" placeholder="Search for users ...." [(ngModel)]="searchProducts" class="search-users">
+        </div>
+        <button (click)="toggleDiv()" class="user-delete-button" style="height: 25px;">close</button>
+      </div>
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>artikelnummer</th>
+            <th>name</th>
+            <th>price</th>
+            <th>update</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let value of filteredProducts">
+            <div *ngIf="showEditProductsDisplay[value.id]" class="edit-products">
+                <form >
+                  <h2 style="color: #0056b3;">Add New Product</h2>
+                  <input type="text" placeholder='{{ value.artikelnummer }}' [(ngModel)]="editProduct.artikelnummer" name="artikelnummer" required />
+                  <input type="text" placeholder='{{ value.name }}' [(ngModel)]="editProduct.name" name="street_address" />
+                  <input type="text" placeholder='{{ value.preis }}' [(ngModel)]="editProduct.preis" name="city" />
+                  <div class="user-actions" style="justify-content: space-between;">
+                    <button type="submit" (click)="updateProducts(value.id,editProduct)" class="user-edit-button">update</button>
+                    <button (click)="closeEditProductsDisplay(value.id)" class="user-delete-button">close</button>
+                  </div>
+                </form>
+            </div>
+            <td>{{ value.artikelnummer }}</td>
+            <td>{{ value.name }}</td>
+            <td>{{ value.preis }}</td>
+            <td>
+              <div class="user-actions">
+                <button class="user-edit-button" (click)="openEditProductsDisplay(value.id)">Edit</button>
+                <button class="user-delete-button" (click)="deleteProduct(value.id)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  
+
+
+
+</div>
+
+
+
+
+<!--
+        <button (click)="update(value.id,{
+              name: 'mmmzgvolm',
+              street_address: '1',
+              city: '3',
+              state: '34',
+              postal_code: '56',
+              telefone: '34'})" class="edit-button button-style">update</button>
+        
+
+
+
+
+    <input type="number" placeholder="ID" [(ngModel)]="newItem" name="id" />
+
+
+
+
+<button (click)="update(value.id,{ name: 'edit',
+      street_address: '1',
+      city: '3',
+      state: '34',
+      postal_code: '56',
+      telefone: '34'})" class="edit-button button-style">edit</button>
+
+
+
+
+<div class="edit-item">
+  <div class="users-field"> USERS </div>
+  <br>
+
+  <div *ngFor="let value of products" class="card-item">
+    <div>
+      <div class="card-name">{{ value.name }}</div>
+      <div>{{ value.preis}}</div>
+    </div>
+    <div class="buttons">
+      <button (click)="delete(value.id)" class="edit-button button-style">edit</button>
+      <div (click)="delete(value.id)" class="delete-button button-style">delete</div>
+    </div>
+  </div>
+</div>
+
+-->

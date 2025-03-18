@@ -1,0 +1,134 @@
+  .managment-body{
+    max-width: calc(100vw - 80px); margin:0px auto; padding-bottom:10px;padding-top: 40px;   font-family: monospace; position: relative;
+  }
+ body::-webkit-scrollbar{ width: 0px;}
+
+  form{
+    background-color: #f9f9f9; border-radius: 8px; padding: 20px; margin-bottom: 60px;  
+  }
+
+  input:focus{
+    outline: 2px solid rgba(39, 136, 255, 0.664);
+  }
+  input{
+    width: calc(100% - 20px);
+    margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;
+  }
+  input[type='search']{
+     height: 35px;
+  }
+::-webkit-scrollbar{ width: 0px;}
+
+
+.edit-products{
+  width: calc(100vw - 60px); 
+  padding:20px 30px;
+  height: calc(100vh -  40px);
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000000;
+  overflow: scroll;
+}
+
+
+.search-div{
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+.search-users{
+  background-color: #ffffffe8;
+  height: 12px ;
+  border-radius: 18px;
+  width: calc(100% - 20px );
+  border: 0.5px solid rgba(0, 34, 255, 0.176);
+  font-family: monospace;
+}
+
+
+/* custom users table start */
+.user-table {
+  width: 100%;
+  margin-top: 0px;
+  background-color: rgb(255, 255, 255);
+}
+.user-table th, .user-table td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 0.5px solid #caecff;
+}
+.user-table th {
+  background-color: #cde2ff8b;
+  border-radius: 5px;
+  font-weight: lighter;
+}
+.user-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.user-edit-button,
+.user-delete-button {
+  cursor: pointer;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 12px;
+}
+.user-edit-button {
+  background-color: #1a6cc4d1;
+  color: white;
+  border: 1.3px solid blue;
+  transition: 0.2s;
+}
+.user-delete-button {
+  background-color: #dc3546d1;
+  color: white;
+  border: 1.3px solid rgb(255, 0, 0);
+  transition: 0.2s;
+}
+.user-edit-button:hover {
+  background-color: #0056b3;
+}
+.user-delete-button:hover {
+  background-color: #c82333;
+}
+/* custom users table end */
+
+/* custom aleart start */
+.alert-box {
+  margin: 0px;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  width: calc(40vw);
+  display: flex;
+  padding:5px 20px;
+  z-index: 1000000000000000000000000000000;
+  border-radius: 4px;
+}
+.alert-box.success {
+  background-color: rgba(30, 201, 55, 0.547) ; /* Green for success */
+  border: 1px solid rgb(0, 167, 31);
+}
+.alert-box.error {
+  background-color:rgba(255, 37, 37, 0.547) ; /* Red for error */
+  border: 1px solid red;
+}
+.alert-box p {
+  margin: 0;
+}
+.alert-box button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+/* custom aleart end */

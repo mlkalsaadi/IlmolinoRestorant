@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Item List</title>
+
+</head>
+<body>
+<div class="container">
+  <ul style="display: none;" *ngIf="items.length > 0" class="items-list">
+    <li *ngFor="let item of items" class="item">
+      <h1>{{ item.name }}</h1>
+      <p>{{ item.id }}</p>
+      <p>{{ item.address_type }}</p>
+      <p>{{ item.street_address }}</p>
+      <p>{{ item.city }}</p>
+      <p>{{ item.state }}</p>
+      <p>{{ item.postal_code }}</p>
+      <p>{{ item.telefone }}</p>
+      <button (click)="deleteItem(item.id)">Delete</button>
+    </li>
+  </ul>
+
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Search by Name, Address, or Telephone"
+      (input)="filterSuggestions($event)"
+      autocomplete="off"
+      class="search-input"
+    />
+    <button class="search-button" (click)="route()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+
+  <ul *ngIf="filteredItems.length > 0" class="suggestions">
+    <li *ngFor="let item of filteredItems" class="suggestion-item" (click)="newItem.city = item.city">
+      <div (click)="oder_(item)" class="suggestion-card">
+        <div class="card-header">
+          <span class="item-id">{{ item.id }}</span>
+          <span class="item-name">{{ item.name }}</span>
+        </div>
+        <div class="card-body">
+          <span class="item-address">{{ item.street_address }}</span>
+          <span class="item-city">{{ item.city }}</span>
+          <span class="item-postal">{{ item.postal_code }}</span>
+          <span class="item-phone">{{ item.telefone }}</span>
+        </div>
+      </div>
+      
+    </li>
+  </ul>
+
+
+  <div class="order-modal" *ngIf="oder">
+    <div class="custom-background">
+    <div style="display: flex; justify-content: end;">
+      <button class="user-delete-button" style="margin-right: 20px;" (click)="close()">close</button>
+    </div>
+    <div class="display-area" id="printableArea">
+      <div class="information">
+        <div class="first-column">
+          <li><strong>ID:</strong> {{dispay_id}}</li>
+          <li><strong>Name:</strong> {{dispay_name}}</li>
+          <li><strong>City:</strong> {{dispay_city}}</li>
+        </div>
+        <div class="second-column">
+          <li><strong>Street Address:</strong> {{dispay_street_address}}</li>
+          <li><strong>Postal Code:</strong> {{dispay_postal_code}}</li>
+          <li><strong>Telephone:</strong> {{dispay_telefone}}</li>
+        </div>
+      </div>
+      <div >
+        <input class="search-products" type="text" (input)="searchProducts($event)" placeholder=" Search for food ">
+      </div>
+      <div class="fullorder">
+            <ul *ngIf="filteredProducts.length > 0" class="product-list">
+              <li *ngFor="let product of filteredProducts" class="product-item">
+                <div (click)="add(product)">
+                  <span>{{ product.name }}</span>: 
+                  <span>{{ product.preis }}</span>
+                </div>
+              </li>
+            </ul>
+
+            <ul class="added-products">
+              <li *ngFor="let product of add_products">
+                <div class="added-product-item" (click)="delete(product)">
+                  <td>{{ product.quantity }} X  </td>
+              <td>{{ product.name }} : </td>
+              <td>{{ product.totalPrice | currency }}</td>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+      <div class="Print">
+          <h1 class="total-price" style="margin-left: 10px;">Price : {{totalPrise}} €</h1>
+          <button class="user-edit-button" style="height: 25px; margin-right: 10px;" (click)="printDivAsText('printableArea')">Print</button>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
+
+
+<!--
+      <ul class="information">
+        <li><strong>ID:</strong> {{dispay_id}}</li>
+        <li><strong>Name:</strong> {{dispay_name}}</li>
+        <li><strong>City:</strong> {{dispay_city}}</li>
+        <li><strong>Street Address:</strong> {{dispay_street_address}}</li>
+        <li><strong>Postal Code:</strong> {{dispay_postal_code}}</li>
+        <li><strong>Telephone:</strong> {{dispay_telefone}}</li>
+      </ul>
+-->
